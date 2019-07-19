@@ -2,26 +2,25 @@
 # The method should return a new str where streaks of consecutive characters are compressed.
 # For example "aaabbc" is compressed to "3a2bc".
 def compress_str(str)
-    ansArr = []
-    strArr = str.split('')
+    ans = ''
 
-    while strArr.length > 1 do
-        counter = 1
-        eleToAdd = ''
-        (0...strArr.length - 1).each do |i|
-            if strArr[i] == strArr[i+1]
-                counter += 1
-                eleToAdd = strArr[i]
-                strArr.delete_at(i)
-            else
-                ansArr << strArr[i]
-                strArr.delete_at(i)
-            end
+    i = 0
+    while i < str.length do
+        count = 0
+        character = str[i]
+
+        while character == str[i] do
+            count += 1
+            i += 1
         end
-        ansArr << counter.to_s
-        ansArr << eleToAdd
+
+        if count == 1
+            ans << character
+        else
+            ans << count.to_s + character
+        end
     end
-    ansArr.join('')
+    return ans
 end
 
 p compress_str("aaabbc")        # => "3a2bc"
